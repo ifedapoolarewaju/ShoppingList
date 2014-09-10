@@ -8,6 +8,15 @@ var useInput;
 
 //object designated to handle every action related to shoppingList
 var listManager = {
+	
+	onReady:function(){
+		$("#item_add_button").click(listManager.addItem);
+		$("#checklist").on("change", "li input", listManager.checkItem);
+		$("#checklist").on("click", "li .delete", listManager.removeItem);
+
+	},
+
+	//validates user input
 	userInputIsValid:function(){
 		if(userInput.length > 0 && userInput !==" ")
 		{
@@ -19,7 +28,7 @@ var listManager = {
 	},
 	addItem:function(){
 		userInput = $("#item_input").val();
-		liElement = "<li" + " id='" +userInput +"'>";
+		liElement = "<li>";
 		inputElement = "<input type='checkbox'>";
 		content = "&ensp;" + userInput + "<button class='delete'>delete</button>";
 		if(listManager.userInputIsValid()){
@@ -55,10 +64,7 @@ var listManager = {
 					Action Delegation
 **********************************************************/
 //resets game once document is ready
-$("#item_add_button").click(listManager.addItem);
-$("#checklist").on("change", "li input", listManager.checkItem);
-$("#checklist").on("click", "li .delete", listManager.removeItem);
-
+$(document).ready(listManager.onReady)
 
 //prevents enter key from submitting form before user input is passed to handler
 $("#item_input").keypress(function(event){
