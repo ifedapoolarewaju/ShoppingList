@@ -18,7 +18,7 @@ var listManager = {
 
 	//validates user input
 	userInputIsValid:function(){
-		if(userInput.length > 0 && userInput !==" ")
+		if(userInput.length > 0 && userInput.trim() !=="" && userInput.length <= 40)
 		{
 			return true;
 		}
@@ -37,7 +37,7 @@ var listManager = {
 			$("#error_msg").text("");
 		}
 		else{
-			$("#error_msg").text("please enter a valid input");
+			$("#error_msg").text("please enter a valid input or reduce text length");
 		}
 	},
 	checkItem:function(event){
@@ -49,14 +49,15 @@ var listManager = {
 			.css("color", "grey").css("font-size", "0.8em");
 		}
 		else{
-			$checkboxParent.css("background-color", "white").css("font-style", "normal")
-			.css("color", "black").css("font-size", "1em");
+			$checkboxParent.css("background-color", "inherit").css("font-style", "inherit")
+			.css("color", "inherit").css("font-size", "inherit");
 		}
 	},
 	removeItem: function(even){
 		$button = $(this);
-		$buttonParent = $button.parent();
-		$($buttonParent).remove();
+		$buttonParent = $button.parent().slideUp(300, function(){
+			this.remove();
+		});
 	},
 }
 
